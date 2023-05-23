@@ -8,7 +8,7 @@ import './Container.css'
 
 const Container = () => {
   return (
-    <div class="container w-50">
+    <div class="container w-50 mb-2 p-2">
       <div class="row border-bottom">
         <div class="col-12">
           <h1 class="text-center text-white fs-10 font-custom">Solicitud
@@ -17,6 +17,7 @@ const Container = () => {
       </div>
         <Btn_Solicitud />
       <div id="seccion-solicitudes">
+            <Card />
             <Card />
       </div>
     </div>
