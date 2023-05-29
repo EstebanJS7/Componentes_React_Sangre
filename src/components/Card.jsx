@@ -1,4 +1,4 @@
-import React from "react";
+
 import Icon_delete from "./icon_delete";
 import Icon_share from "./Icon_share";
 
@@ -21,7 +21,7 @@ const Card = () => {
 
 
   return (
-    <div className="border border-2 rounded-3 w-50 bg-white mx-auto mt-5 mb-2 p-5">
+    <div className="card-solicitud border border-2 rounded-3 w-50 bg-white mx-auto mt-5 mb-2 p-5">
       <div className="row">
         <p className="d-flex justify-content-between border-bottom">
           <span>
