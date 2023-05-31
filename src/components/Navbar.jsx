@@ -2,8 +2,12 @@
 import ButtonForms from "./ButtonForms";
 
 function Navbar() {
-
+  const stylea = {
+    textDecoration: 'none', 
+    color: 'inherit' 
+  };
   return (
+   
     <nav className="containernav">
       <img
         className="logoimg"
@@ -15,18 +19,18 @@ function Navbar() {
             <a href="/punto-donacion">Puntos de Donacion</a>
           </li>
           <li>
-            <a href="#">Solicitudes</a>
+            <a href="">Solicitudes</a>
           </li>
           <li>
-            <a href="#">Certificados</a>
+            <a href="/certificados">Certificados</a>
           </li>
         </ul>
-      <div className="navbutton">
-            <ButtonForms transparent={false} background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left" icon="bi bi-person-fill" border={false} disabled={false}  height='30px'>
+        <div className="navbutton">
+            <ButtonForms transparent={false} background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left"  icon="bi bi-person-fill" border={false} disabled={false}  height='30px'>
                 Perfil
             </ButtonForms>
             <ButtonForms transparent={false} background="white" textColor="#1c74e4" showSymbol={false}  border={false} disabled={false}  height='30px'>
-                Login
+               <a style={stylea} href='/login'>Login</a> 
             </ButtonForms>
       </div>
     </nav>
