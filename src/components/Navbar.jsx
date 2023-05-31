@@ -27,7 +27,7 @@ function Navbar() {
         </ul>
         <div className="navbutton">
             <ButtonForms transparent={false} background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left"  icon="bi bi-person-fill" border={false} disabled={false}  height='30px'>
-                Perfil
+            <a style={stylea} href='/perfil'>Perfil</a> 
             </ButtonForms>
             <ButtonForms transparent={false} background="white" textColor="#1c74e4" showSymbol={false}  border={false} disabled={false}  height='30px'>
                <a style={stylea} href='/login'>Login</a> 

@@ -8,7 +8,8 @@ import Login from './views/Login.jsx'
 import Register from './views/Register.jsx'
 import PasswordRecovery from './views/PasswordRecovery.jsx'
 import Certificates from './views/Certificates.jsx'
-import NewCertificates from './views/NewCertificates.jsx'
+import NewCertificate from './views/NewCertificate.jsx'
+import Perfil from './views/Perfil.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,7 +19,8 @@ const router = createBrowserRouter(
       <Route path='registrarse' element={<Register />} />
       <Route path='recuperar-password' element={<PasswordRecovery/>} />
       <Route path='certificados' element={<Certificates/>} />
-      <Route path='certificado-solicitud' element={<NewCertificates />} />
+      <Route path='certificado-solicitud' element={<NewCertificate />} />
+      <Route path='perfil' element={<Perfil />} />
     </Route>
   )
 )
