@@ -19,7 +19,7 @@ function Navbar() {
             <a href="/punto-donacion">Puntos de Donacion</a>
           </li>
           <li>
-            <a href="">Solicitudes</a>
+            <a href="/solicitudes">Solicitudes</a>
           </li>
           <li>
             <a href="/certificados">Certificados</a>

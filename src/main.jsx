@@ -10,6 +10,7 @@ import PasswordRecovery from './views/PasswordRecovery.jsx'
 import Certificates from './views/Certificates.jsx'
 import NewCertificate from './views/NewCertificate.jsx'
 import Perfil from './views/Perfil.jsx'
+import Container from './components/Container.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path='certificados' element={<Certificates/>} />
       <Route path='certificado-solicitud' element={<NewCertificate />} />
       <Route path='perfil' element={<Perfil />} />
+      <Route path='solicitudes' element={<Container />} />
     </Route>
   )
 )

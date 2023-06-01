@@ -1,10 +1,12 @@
 import { useState } from "react";
-
+import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,11 +28,30 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      console.log('Inicio de sesión exitoso');
+      login()
     } else {
       console.log('Por favor, completa todos los campos');
     }
   };
+
+  const login = async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.16.90:8000/api/login/",
+        { email, password }
+      );
+      const { token } = response.data;
+
+      localStorage.setItem("token", token);
+
+      alert("Inicio de sesión exitoso");
+    } catch (error) {
+      console.error(error.response.data);
+
+    }
+  };
+
+
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -83,7 +104,7 @@ const Login = () => {
                       name="password"
                       value={password}
                       onChange={handleInputChange}
-                      minLength={6}
+                      minLength={2}
                       required
                     />
                     <button

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -24,6 +25,23 @@ const Register = () => {
     if (name === "repeatPassword") setRepeatPassword(value);
     if (name === "gender") setGender(value);
     if (name === "birthdate") setBirthdate(value);
+  };
+
+  const register = async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.16.90:8000/api/registro/",
+        { name, surname: lastName, password, email, fecha_nacimiento: birthdate, sexo: gender, nro_cedula: ci}
+      );
+      const { token } = response.data;
+
+      localStorage.setItem("token", token);
+
+      alert("Registro exitoso");
+    } catch (error) {
+      console.error(error.response.data);
+
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -85,7 +103,7 @@ const Register = () => {
       setErrors(validationErrors);
       return;
     }
-
+    register();
     console.log("Registro exitoso");
   };
 

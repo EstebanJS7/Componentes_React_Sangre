@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const NewCertificate = () => {
   const [establishment, setEstablishment] = useState("");
   const [maxDate] = useState(new Date().toISOString().split("T")[0]);
   const [errors, setErrors] = useState({});
-
+  const {establecimiento, setEstablecimiento} = useState("")
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    
 
     if (name === "establishment") {
       setEstablishment(value);
+    }
+  };
+  useEffect( () =>{
+    axios
+      .get('http://192.168.16.90:8000/api/locales/')
+      .then((response) => setEstablecimiento (response.data))
+      .catch((error) => setEstablecimiento(["error al cargar los estableciomientos"]));
+  }
+  , [])
+
+
+
+  const newCetificate = async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.16.90:8000/api/login/",
+        { fecha_donacion: maxDate, local_donacion_id: establishment }
+      );
+      const { token } = response.data;
+
+      localStorage.setItem("token", token);
+
+      alert("Certificado generado con exito");
+    } catch (error) {
+      console.error(error.response.data);
+
     }
   };
 
@@ -25,14 +53,14 @@ const NewCertificate = () => {
       setErrors(validationErrors);
       return;
     }
-
+    newCetificate()
     console.log("Registro exitoso");
   };
 
   return (
     <div className="container">
       <div className="row justify-content-center mt-5">
-        <div className="col-md-6">
+      {establecimiento &&   <div className="col-md-6">
           <div className="card">
             <div className="card-header">
               <h3 className="text-center">Nuevo Certificado</h3>
@@ -51,7 +79,9 @@ const NewCertificate = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
+             
+            
+             <div className="mb-3">
                   <label htmlFor="establishment" className="form-label">
                     Centro
                   </label>
@@ -66,10 +96,8 @@ const NewCertificate = () => {
                     required
                   >
                     <option value="">Selecciona un establecimiento</option>
-                    <option value="Establecimiento 1">Establecimiento 1</option>
-                    <option value="Establecimiento 2">Establecimiento 2</option>
-                    <option value="Establecimiento 3">Establecimiento 3</option>
-                    <option value="Establecimiento 4">Establecimiento 4</option>
+                    {establecimiento.map(() => (
+                    <option value="Establecimiento 1">Establecimiento 1</option>))}
                   </select>
                   {errors.establishment && (
                     <div className="invalid-feedback">
@@ -83,7 +111,7 @@ const NewCertificate = () => {
               </form>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );
