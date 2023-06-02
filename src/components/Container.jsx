@@ -2,7 +2,6 @@
 
 
 import Card from './Card'
-import './Container.css'
 import ButtonForms from './ButtonForms'
 
 

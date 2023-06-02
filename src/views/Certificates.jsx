@@ -31,9 +31,9 @@ const Certificates = () => {
           >
             + Certificados
           </a>
-          <div className="row justify-content-center mt-1">
-            {datos.map((item) => (
-              <div key={item.id} className="col-md-4">
+          <div className="row justify-content-center my-2">
+            {datos.map((item, index) => (
+              <div key={index} className="col-md-4">
                 <div className="card">
                   <div className="card-header">
                     <h3 className="text-center">Certificados</h3>
@@ -61,7 +61,7 @@ const Certificates = () => {
                     </p>
                     <p className="d-flex justify-content-between">
                       <span>Fecha de Donacion: </span>
-                      <span>{item.user.ult_vez_donado}</span>
+                      <span>{item.fecha_donacion}</span>
                     </p>
                   </div>
                 </div>
