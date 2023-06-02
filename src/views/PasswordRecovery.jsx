@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
@@ -12,9 +13,29 @@ const PasswordRecovery = () => {
     e.preventDefault();
     if (validateEmail(email)) {
       console.log("Correo electrónico enviado para recuperar la contraseña");
+      resetPass();
     } else {
       setError("Ingresa un correo electrónico válido");
     }
+  };
+  const resetPass = () => {
+    //traer token
+    const token = localStorage.getItem("token");
+
+    localStorage.setItem("token", token);
+
+    axios
+      .post(
+        "http://192.168.16.90:8000/api/reset-password/",
+        { email },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then((response) => alert("Contraseña enviada"))
+      .catch((error) => {
+        console.error(error.response.data);
+      });
   };
 
   const validateEmail = (email) => {

@@ -10,8 +10,11 @@ const Container = () => {
     <div className="container w-75 mb-2 p-2">
       <div className="row border-bottom">
         <div className="col-12">
-          <h1 className="text-center text-white fs-10 font-custom">Solicitud
+          <h1 className="text-center text-blac fs-10 font-custom">Solicitud
           </h1>
+          <span className=''>
+
+          </span>
         </div>
       </div> 
       <div className='row d-flex justify-content-center align-items-center mt-3'>

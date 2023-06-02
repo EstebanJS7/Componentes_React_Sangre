@@ -10,6 +10,8 @@ const NewCertificate = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
+    console.log(name,value)
+
     if (name === "establishment") setEstablishment(value);
     if (name === "date") setDate(value);
   };
@@ -31,11 +33,12 @@ const NewCertificate = () => {
     const token = localStorage.getItem("token");
 
     localStorage.setItem("token", token);
+    console.log(date,establishment)
     //axios pasando header
     axios
       .post(
         "http://192.168.16.90:8000/api/certificados",
-        { fecha_donacion: date, local_donacion_id: establecimiento },
+        { fecha_donacion: date, local_donacion_id: establishment },
         {
           headers: { Authorization: "Bearer " + token },
         }
@@ -97,16 +100,15 @@ const NewCertificate = () => {
                       Centro
                     </label>
                     <select
-                      className={`form-select ${
-                        errors.establishment ? "is-invalid" : ""
-                      }`}
+                      className={`form-select ${errors.establishment ? "is-invalid" : ""
+                        }`}
                       id="establishment"
                       name="establishment"
                       value={establishment}
                       onChange={handleInputChange}
                       required
                     >
-                      <option value="">Selecciona un establecimiento</option>
+                      <option selected value="">Selecciona un establecimiento</option>
                       {establecimiento.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.local_donacion}
