@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const NewRequest = () => {
   const [fullName, setFullName] = useState("");
@@ -10,6 +11,7 @@ const NewRequest = () => {
   const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({});
+  const [establecimiento, setEstablecimiento] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +30,41 @@ const NewRequest = () => {
     } else if (name === "description") {
       setDescription(value);
     }
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://192.168.16.90:8000/api/locales")
+      .then((response) => {
+        console.log(response.data.data);
+        setEstablecimiento(response.data.data);
+      })
+      .catch((error) =>
+        console.log("error al cargar los establecimientos", error)
+      );
+  }, []);
+
+  const newCertificate = () => {
+    //traer token
+    const token = localStorage.getItem("token");
+
+    localStorage.setItem("token", token);
+    console.log(date,establishment)
+    //axios pasando header
+    axios
+      .post(
+        "http://192.168.16.90:8000/api/certificados",
+        { nombre_apellido_donatario: fullName, cedula_donatario: ci, tipo_sangre: bloodType,
+        establecimiento: establishment, volumenes_necesarios: volume, fecha_limite
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
+      .then((response) => alert("Certificado generado con éxito"))
+      .catch((error) => {
+        console.error(error.response.data);
+      });
   };
 
   const handleSubmit = (e) => {

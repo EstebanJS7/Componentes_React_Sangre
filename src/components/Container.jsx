@@ -24,7 +24,6 @@ const Container = () => {
         </div>
       <div id="seccion-solicitudes">
             <Card />
-            <Card />
       </div>
     </div>
   )
