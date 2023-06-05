@@ -1,4 +1,5 @@
 
+import { NavLink } from "react-router-dom";
 import ButtonForms from "./ButtonForms";
 
 function Navbar() {
@@ -16,21 +17,21 @@ function Navbar() {
 
         <ul className="listaelement">
           <li>
-            <a href="/punto-donacion">Puntos de Donacion</a>
+            <NavLink to="/punto-donacion">Puntos de Donacion</NavLink>
           </li>
           <li>
-            <a href="/solicitudes">Solicitudes</a>
+            <NavLink to="/solicitudes">Solicitudes</NavLink>
           </li>
           <li>
-            <a href="/certificados">Certificados</a>
+            <NavLink to="/certificados">Certificados</NavLink>
           </li>
         </ul>
         <div className="navbutton">
-            <ButtonForms transparent={false} background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left"  icon="bi bi-person-fill" border={false} disabled={false}  height='30px'>
-            <a style={stylea} href='/perfil'>Perfil</a> 
+            <ButtonForms transparent={false} link='/perfil' background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left"  icon="bi bi-person-fill" border={false} disabled={false}  height='30px'>
+            Perfil
             </ButtonForms>
-            <ButtonForms transparent={false} background="white" textColor="#1c74e4" showSymbol={false}  border={false} disabled={false}  height='30px'>
-               <a style={stylea} href='/login'>Login</a> 
+            <ButtonForms transparent={false} link='/login' background="white" textColor="#1c74e4" showSymbol={false}  border={false} disabled={false}  height='30px'>
+               Login
             </ButtonForms>
       </div>
     </nav>

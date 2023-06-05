@@ -29,12 +29,10 @@ const NewCertificate = () => {
   }, []);
 
   const newCertificate = () => {
-    //traer token
     const token = localStorage.getItem("token");
 
     localStorage.setItem("token", token);
     console.log(date,establishment)
-    //axios pasando header
     axios
       .post(
         "http://192.168.16.90:8000/api/certificados",

@@ -47,7 +47,7 @@ const Login = () => {
       alert("Inicio de sesión exitoso");
     } catch (error) {
       console.error(error.response.data);
-
+      alert(error.response.data.message);
     }
   };
 

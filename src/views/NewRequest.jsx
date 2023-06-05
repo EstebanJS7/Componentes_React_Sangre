@@ -208,8 +208,8 @@ const NewRequest = () => {
                     <option value="3">B-</option>
                     <option value="4">O+</option>
                     <option value="5">O-</option>
-                    <option value="6">AB+</option>
-                    <option value="7">AB-</option>
+                    <option value="6">AB-</option>
+                    <option value="7">AB+</option>
                   </select>
                   {errors.bloodType && (
                     <div className="invalid-feedback">{errors.bloodType}</div>

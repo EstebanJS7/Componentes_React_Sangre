@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Perfil = () => {
+
+	const navigate = useNavigate()
   const styleimg = {
     width: "120px",
     height: "180px",
@@ -27,6 +30,12 @@ const Perfil = () => {
         .catch((error) => console.error(error));
     }
   }, []);
+
+  const cerrarSesion = () =>{
+	localStorage.clear()
+	navigate('/login')
+
+  }
 
   return (
     <div className="container">
@@ -70,7 +79,7 @@ const Perfil = () => {
               <hr />
               <a className="btn btn-primary" href="/editar-perfil" role="button">Editar Perfil</a>
               <a className="btn btn-primary" href="/cambiar-pass" role="button">Cambiar contraseña</a>
-              <a className="btn btn-primary" href="#" role="button">Cerrar Sesión</a>
+              <button className="btn btn-primary" href="#" role="button" onClick={cerrarSesion}>Cerrar Sesión</button>
             </div>
           </div>}
          

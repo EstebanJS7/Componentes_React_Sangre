@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Certificates = () => {
   const [datos, setDatos] = useState(null);
@@ -24,16 +25,16 @@ const Certificates = () => {
     <>
       {datos && (
         <div className="container">
-          <a
+          <Link
             className="btn btn-primary"
-            href="./certificado-solicitud"
+            to="/certificado-solicitud"
             role="button"
           >
             + Certificados
-          </a>
+          </Link>
           <div className="row justify-content-center my-2">
             {datos.map((item, index) => (
-              <div key={index} className="col-md-4">
+              <div key={index} className="col-md-4 my-2">
                 <div className="card">
                   <div className="card-header">
                     <h3 className="text-center">Certificados</h3>
