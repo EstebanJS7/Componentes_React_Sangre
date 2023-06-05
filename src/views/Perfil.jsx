@@ -66,7 +66,14 @@ const Perfil = () => {
                 <span>{datos.nro_cedula}</span>
               </p>
             </div>
+            <div className="d-grid gap-2 m-2 pb-2">
+              <hr />
+              <a className="btn btn-primary" href="/editar-perfil" role="button">Editar Perfil</a>
+              <a className="btn btn-primary" href="/cambiar-pass" role="button">Cambiar contraseña</a>
+              <a className="btn btn-primary" href="#" role="button">Cerrar Sesión</a>
+            </div>
           </div>}
+         
         </div>
       </div>
     </div>

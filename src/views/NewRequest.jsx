@@ -7,6 +7,7 @@ const NewRequest = () => {
   const [bloodType, setBloodType] = useState("");
   const [establishment, setEstablishment] = useState("");
   const [volume, setVolume] = useState("");
+  const [date, setDate] = useState("");
   const [maxDate] = useState(new Date().toISOString().split("T")[0]);
   const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
@@ -29,6 +30,8 @@ const NewRequest = () => {
       setPhone(value);
     } else if (name === "description") {
       setDescription(value);
+    } else if (name === "date") {
+      setDate(value);
     }
   };
 
@@ -44,24 +47,22 @@ const NewRequest = () => {
       );
   }, []);
 
-  const newCertificate = () => {
-    //traer token
+  const requestToken = () => {
     const token = localStorage.getItem("token");
 
     localStorage.setItem("token", token);
-    console.log(date,establishment)
-    //axios pasando header
     axios
       .post(
-        "http://192.168.16.90:8000/api/certificados",
+        "http://192.168.16.90:8000/api/solicitudes",
         { nombre_apellido_donatario: fullName, cedula_donatario: ci, tipo_sangre: bloodType,
-        establecimiento: establishment, volumenes_necesarios: volume, fecha_limite
+        establecimiento: establishment, volumenes_necesarios: volume, fecha_limite: date,
+        telefono_contacto: phone, solicitud: description
         },
         {
           headers: { Authorization: "Bearer " + token },
         }
       )
-      .then((response) => alert("Certificado generado con éxito"))
+      .then((response) => alert("Solicitud generada con éxito"))
       .catch((error) => {
         console.error(error.response.data);
       });
@@ -83,6 +84,9 @@ const NewRequest = () => {
     }
     if (!establishment) {
       validationErrors.establishment = "Por favor, selecciona un establecimiento";
+    }
+    if (!date) {
+      validationErrors.date = "Por favor, selecciona una fecha";
     }
     if (!volume) {
       validationErrors.volume = "Por favor, ingresa el volumen";
@@ -116,6 +120,8 @@ const NewRequest = () => {
     }
 
     console.log("Registro exitoso");
+    console.log(date)
+    requestToken();
   };
 
   const validateName = (value) => {
@@ -141,7 +147,7 @@ const NewRequest = () => {
             <div className="card-header">
               <h3 className="text-center">Nueva Solicitud</h3>
             </div>
-            <div className="card-body">
+            {establecimiento && <div className="card-body">
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="fullName" className="form-label">
@@ -196,14 +202,14 @@ const NewRequest = () => {
                     required
                   >
                     <option value="">Selecciona un tipo de sangre</option>
-                    <option value="1">O-</option>
-                    <option value="2">O+</option>
-                    <option value="3">A-</option>
-                    <option value="4">A+</option>
-                    <option value="5">B-</option>
-                    <option value="6">B+</option>
+                    <option value="0">A+</option>
+                    <option value="1">A-</option>
+                    <option value="2">B+</option>
+                    <option value="3">B-</option>
+                    <option value="4">O+</option>
+                    <option value="5">O-</option>
+                    <option value="6">AB+</option>
                     <option value="7">AB-</option>
-                    <option value="8">AB+</option>
                   </select>
                   {errors.bloodType && (
                     <div className="invalid-feedback">{errors.bloodType}</div>
@@ -224,10 +230,11 @@ const NewRequest = () => {
                     required
                   >
                     <option value="">Selecciona un establecimiento</option>
-                    <option value="Establecimiento 1">Establecimiento 1</option>
-                    <option value="Establecimiento 2">Establecimiento 2</option>
-                    <option value="Establecimiento 3">Establecimiento 3</option>
-                    <option value="Establecimiento 4">Establecimiento 4</option>
+                      {establecimiento.map((item) => (
+                        <option key={item.id} value={item.local_donacion}>
+                          {item.local_donacion}
+                        </option>
+                      ))}
                   </select>
                   {errors.establishment && (
                     <div className="invalid-feedback">
@@ -256,14 +263,16 @@ const NewRequest = () => {
                   )}
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="maxDate" className="form-label">
+                  <label htmlFor="date" className="form-label">
                     Fecha Limite
                   </label>
                   <input
                     type="date"
                     className="form-control"
-                    id="maxDate"
-                    name="maxDate"
+                    id="date"
+                    name="date"
+                    value={date}
+                    onChange={handleInputChange}
                     min={maxDate}
                     required
                   />
@@ -310,10 +319,10 @@ const NewRequest = () => {
                   )}
                 </div>
                 <button type="submit" className="btn btn-primary">
-                  Registrarse
+                  Generar Solicitud
                 </button>
               </form>
-            </div>
+            </div>}
           </div>
         </div>
       </div>

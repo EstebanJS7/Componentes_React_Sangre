@@ -17,9 +17,12 @@ const Container = () => {
           </span>
         </div>
       </div> 
-      <div className='row d-flex justify-content-center align-items-center mt-3'>
+      <div className='row d-flex justify-content-betwenen align-items-center mt-3'>
         <ButtonForms transparent={false} background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left" icon="bi bi-plus" border={false} disabled={false}  height='60px' width="200px">
              Mis Solicitudes
+        </ButtonForms>
+        <ButtonForms transparent={false} background="#1c74e4" textColor="white" showSymbol={true} symbolPosition="left" icon="bi bi-plus" border={false} disabled={false}  height='60px' width="200px">
+        <a href='nueva-solicitud'>New Solicitud</a>
         </ButtonForms>
         </div>
       <div id="seccion-solicitudes">

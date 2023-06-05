@@ -11,6 +11,9 @@ import Certificates from './views/Certificates.jsx'
 import NewCertificate from './views/NewCertificate.jsx'
 import Perfil from './views/Perfil.jsx'
 import Container from './components/Container.jsx'
+import NewRequest from './views/NewRequest.jsx'
+import PerfilEdit from './views/PerfilEdit.jsx'
+import PassEdit from './views/PassEdit.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +26,9 @@ const router = createBrowserRouter(
       <Route path='certificado-solicitud' element={<NewCertificate />} />
       <Route path='perfil' element={<Perfil />} />
       <Route path='solicitudes' element={<Container />} />
+      <Route path='nueva-solicitud' element={<NewRequest/>} />
+      <Route path='editar-perfil' element={<PerfilEdit />} />
+      <Route path='cambiar-pass' element={<PassEdit/>} />
     </Route>
   )
 )
