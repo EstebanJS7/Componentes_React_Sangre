@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const NewRequest = () => {
   const [fullName, setFullName] = useState("");
@@ -13,6 +14,8 @@ const NewRequest = () => {
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({});
   const [establecimiento, setEstablecimiento] = useState(null);
+
+  const tokenRedux = useSelector(state => state.token)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,9 +51,9 @@ const NewRequest = () => {
   }, []);
 
   const requestToken = () => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    localStorage.setItem("token", token);
+    // localStorage.setItem("token", token);
     axios
       .post(
         "http://192.168.16.90:8000/api/solicitudes",
@@ -59,7 +62,7 @@ const NewRequest = () => {
         telefono_contacto: phone, solicitud: description
         },
         {
-          headers: { Authorization: "Bearer " + token },
+          headers: { Authorization: "Bearer " + tokenRedux },
         }
       )
       .then((response) => alert("Solicitud generada con éxito"))

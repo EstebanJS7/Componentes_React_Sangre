@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+
 const Perfil = () => {
+  const tokenRedux = useSelector(state => state.token)
+  const dispatch = useDispatch()
 
 	const navigate = useNavigate()
   const styleimg = {
@@ -16,12 +21,12 @@ const Perfil = () => {
   const [datos, setDatos] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    // const token = localStorage.getItem("token");
+    if ( tokenRedux ) {
       console.log("Sesión de usuario conectado");
       axios
         .get("http://192.168.16.90:8000/api/user/", {
-          headers: { Authorization: "Bearer " + token },
+          headers: { Authorization: "Bearer " + tokenRedux },
         })
         .then((response) => {
           console.log(response);
@@ -32,9 +37,8 @@ const Perfil = () => {
   }, []);
 
   const cerrarSesion = () =>{
-	localStorage.clear()
-	navigate('/login')
-
+    dispatch({type: 'logout'})
+	  navigate('/login')
   }
 
   return (
@@ -77,8 +81,8 @@ const Perfil = () => {
             </div>
             <div className="d-grid gap-2 m-2 pb-2">
               <hr />
-              <a className="btn btn-primary" href="/editar-perfil" role="button">Editar Perfil</a>
-              <a className="btn btn-primary" href="/cambiar-pass" role="button">Cambiar contraseña</a>
+              <NavLink className="btn btn-primary" to="/editar-perfil" role="button">Editar Perfil</NavLink>
+              <NavLink className="btn btn-primary" to="/cambiar-pass" role="button">Cambiar contraseña</NavLink>
               <button className="btn btn-primary" href="#" role="button" onClick={cerrarSesion}>Cerrar Sesión</button>
             </div>
           </div>}

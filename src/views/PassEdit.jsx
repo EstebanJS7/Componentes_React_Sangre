@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const PassEdit = () => {
     const [oldPass, setOldPass] = useState("");
@@ -10,6 +11,8 @@ const PassEdit = () => {
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
     const [errors, setErrors] = useState({});
 
+    const tokenRedux = useSelector(state => state.token)
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         if (name === "oldPass") setOldPass(value);
@@ -17,17 +20,19 @@ const PassEdit = () => {
         if (name === "repeatPassword") setRepeatPassword(value);
     };
 
+    
+
     const newPass = () => {
 
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        localStorage.setItem("token", token);
+        // localStorage.setItem("token", token);
         axios
             .post(
                 "http://192.168.16.90:8000/api/cambiar-password/",
                 { old_password: oldPass, password },
                 {
-                    headers: { Authorization: "Bearer " + token },
+                    headers: { Authorization: "Bearer " + tokenRedux },
                 }
             )
             .then((response) => alert("Se ha cambiado la contraseña exitosamente"))

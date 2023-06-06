@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+
 
 
 const Check = ({ texto, datos, setDatos }) => {
 
     const [checkeado, setCheckeado] = useState(false)
+    const tokenRedux = useSelector(state => state.token)
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
         if (checkeado == false) {
             axios
@@ -22,7 +26,7 @@ const Check = ({ texto, datos, setDatos }) => {
 
             axios
                 .get("http://192.168.16.90:8000/api/solicitudes-protegido", {
-                    headers: { Authorization: "Bearer " + token },
+                    headers: { Authorization: "Bearer " + tokenRedux },
                 })
                 .then((response) => {
                     console.log(response.data.data);

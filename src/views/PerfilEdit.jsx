@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import { useSelector } from "react-redux";
 
 const PerfilEdit = () => {
     const [name, setName] = useState("");
@@ -9,6 +10,8 @@ const PerfilEdit = () => {
     const [maxDate] = useState(new Date().toISOString().split("T")[0]);
     const [gender, setGender] = useState("");
     const [errors, setErrors] = useState({});
+
+    const tokenRedux = useSelector(state => state.token)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -21,17 +24,17 @@ const PerfilEdit = () => {
 
     const changePerfil = () => {
 
-        const token = localStorage.getItem("token");
+        // const token = localStorage.getItem("token");
 
-        localStorage.setItem("token", token);
-        console.log()
+        // localStorage.setItem("token", token);
+        // console.log()
 
         axios
             .post(
                 "http://192.168.16.90:8000/api/editar-perfil/",
                 { name, surname: lastName, email, fecha_nacimiento: birthdate, sexo: gender },
                 {
-                    headers: { Authorization: "Bearer " + token },
+                    headers: { Authorization: "Bearer " + tokenRedux },
                 }
             )
             .then((response) => alert("Cambios en el perfil realizado con éxito"))

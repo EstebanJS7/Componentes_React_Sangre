@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {  useSelector } from "react-redux";
 
 const Certificates = () => {
   const [datos, setDatos] = useState(null);
 
+  const tokenRedux = useSelector(state => state.token)
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    // const token = localStorage.getItem("token");
+    if (tokenRedux) {
       console.log("Sesión de usuario conectado");
       axios
         .get("http://192.168.16.90:8000/api/certificados/", {
-          headers: { Authorization: "Bearer " + token },
+          headers: { Authorization: "Bearer " + tokenRedux },
         })
         .then((response) => {
           console.log(response.data.data);

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,6 +15,8 @@ const Register = () => {
   const [birthdate, setBirthdate] = useState("");
   const [maxDate] = useState(new Date().toISOString().split("T")[0]);
   const [errors, setErrors] = useState({});
+
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,12 +33,14 @@ const Register = () => {
   const register = async () => {
     try {
       const response = await axios.post(
-        "http://192.168.16.90:8000/api/registro/",
+        "http://192.168.16.90:8000/api/registro",
         { name, surname: lastName, password, email, fecha_nacimiento: birthdate, sexo: gender, nro_cedula: ci}
       );
-      const { token } = response.data;
+      // const { token } = response.data;
 
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
+      dispatch({type: 'setToken', payload: response.data.token})
+      dispatch({type: 'setUser', payload: response.data.user})
 
       alert("Registro exitoso");
     } catch (error) {

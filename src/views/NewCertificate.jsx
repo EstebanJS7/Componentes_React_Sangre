@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {  useSelector } from "react-redux";
+
 
 const NewCertificate = () => {
   const [establishment, setEstablishment] = useState("");
   const [date, setDate] = useState("");
   const [errors, setErrors] = useState({});
   const [establecimiento, setEstablecimiento] = useState(null);
+
+  const tokenRedux = useSelector(state => state.token)
+ 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,16 +34,16 @@ const NewCertificate = () => {
   }, []);
 
   const newCertificate = () => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    localStorage.setItem("token", token);
+    // localStorage.setItem("token", token);
     console.log(date,establishment)
     axios
       .post(
         "http://192.168.16.90:8000/api/certificados",
         { fecha_donacion: date, local_donacion_id: establishment },
         {
-          headers: { Authorization: "Bearer " + token },
+          headers: { Authorization: "Bearer " + tokenRedux },
         }
       )
       .then((response) => alert("Certificado generado con éxito"))

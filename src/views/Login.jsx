@@ -1,5 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -7,6 +11,7 @@ const Login = () => {
   const [errors, setErrors] = useState({ email: '', password: '' });
 
 
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,9 +45,11 @@ const Login = () => {
         "http://192.168.16.90:8000/api/login/",
         { email, password }
       );
-      const { token } = response.data;
+      // const { token } = response.data;
+  
 
-      localStorage.setItem("token", token);
+      dispatch({type: 'setToken', payload: response.data.token})
+      dispatch({type: 'setUser', payload: response.data.user})
 
       alert("Inicio de sesión exitoso");
     } catch (error) {
@@ -121,8 +128,8 @@ const Login = () => {
               </form>
             </div>
             <div className="card-footer text-center">
-              <a href="/registrarse" style={linkStyles}>Regístrate</a><br />
-              <a href="/recuperar-password" style={linkStyles}>¿Olvidaste tu contraseña?</a>
+              <NavLink to="/registrarse" style={linkStyles}>Regístrate</NavLink><br />
+              <NavLink to="/recuperar-password" style={linkStyles}>¿Olvidaste tu contraseña?</NavLink>
             </div>
           </div>
         </div>
