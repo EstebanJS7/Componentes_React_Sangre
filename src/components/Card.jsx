@@ -3,7 +3,7 @@ import axios from "axios";
 import Deletei from './Deletei'
 import Sharei from "./Sharei";
 
-const Card = ({datos}) => {
+const Card = ({datos, setDatos}) => {
   
   let tipo_sangre = ["A+", "A-", "B+", "B-", "O+", "O-", "AB-", "AB+"];
   let source = "https://res.cloudinary.com/dhzoxdo6q/image/upload/donacion-sangre/";
@@ -21,7 +21,7 @@ const Card = ({datos}) => {
                   <div className="card-header d-flex justify-content-between">
                     <p className="text-center">{item.nombre_apellido_donatario}</p>
                     <span>
-                      <Deletei />
+                      <Deletei id={item.id} datos={datos} setDatos={setDatos}/>
                       <Sharei />
                     </span>
                   </div>
